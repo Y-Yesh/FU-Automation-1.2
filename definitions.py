@@ -13,7 +13,7 @@ definitions = {
        'ADVANCED' : "Champions AI adoption. Seeks advanced knowledge. Mentors others. Creates learning content.",
        'EXPERT' : 'Drives AI innovation culture. Creates development frameworks. Influences organizational learning strategy.'
    },
-    'External Awarness' : {
+    'External Awareness' : {
        'FOUNDATION' : 'Basic awareness of AI existence. Limited understanding of industry impact.',
        'EMERGING' : 'Follows basic AI news. Recognizes common industry applications. Understands immediate competitor actions.',
        'PROFICIENT' : 'Tracks industry AI trends. Identifies relevant use cases. Analyzes competitor strategies.',

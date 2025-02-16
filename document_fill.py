@@ -48,7 +48,10 @@ for each,details in participant_dict.items():
     row0 = summary_table.rows[0] 
     row0.cells[1].text = each
     row0.cells[3].text = date   
-                
+    for paragraph in row0.cells[1].paragraphs:
+        for run in paragraph.runs:
+            run.font.bold = True
+            run.font.color.rgb = RGBColor(0, 0, 0)            
     row_data = [cell.text.strip() for cell in row0.cells]  # Extract text from each cell
     print(row_data)
 
@@ -57,7 +60,7 @@ for each,details in participant_dict.items():
     row1 = summary_table.rows[1] 
     row1.cells[1].text = details['Company']
     row1.cells[3].text = definitions['Total Score'][map_level(details['Total Score'])]
-    for paragraph in row0.cells[1].paragraphs:
+    for paragraph in row1.cells[1].paragraphs:
         for run in paragraph.runs:
             run.font.bold = True
             run.font.color.rgb = RGBColor(0, 0, 0)
@@ -87,8 +90,8 @@ for each,details in participant_dict.items():
 
     #Row 5 is 'Company' and 'Total Score'
     row4 = summary_table.rows[4] 
-    row3.cells[1].text = details['Position']
-    row3.cells[2].text = map_level(details['Total Score'])
+    row4.cells[1].text = details['Position']
+    row4.cells[2].text = map_level(details['Total Score'])
     for paragraph in row0.cells[1].paragraphs:
         for run in paragraph.runs:
             run.font.color.rgb = RGBColor(0, 0, 0)

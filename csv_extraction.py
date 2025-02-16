@@ -11,7 +11,7 @@ columns_to_extract = [
 ]
 
 columns_to_extract_personnel = [
-    'Company','Country','Department','Technical Foundation', 'Personal Readiness', 'External Awareness',
+    'Company','Country','Department','Position','Technical Foundation', 'Personal Readiness', 'External Awareness',
     'Process Integration', 'Department Integration',
     'Implementation Impact', 'Individual Score', 'Integrated Score',
     'Total Score'
@@ -58,15 +58,15 @@ country_dict = df_country.set_index('Participant')[columns_to_extract].to_dict(o
 
 # ------------------------- Displaying -----------------------------------------
 
-print(json.dumps(participant_dict,indent=4))
+#print(json.dumps(participant_dict,indent=4))
 
 
-print(f'No of Participants -------------> {len(participant_dict.keys())}')
+#print(f'No of Participants -------------> {len(participant_dict.keys())}')
 
-print(f"The most frequently listed company is '{most_frequent_company}' with {most_frequent_count} occurrences.")
+#print(f"The most frequently listed company is '{most_frequent_company}' with {most_frequent_count} occurrences.")
 
 
-print(json.dumps(company_dict,indent=4))
+#print(json.dumps(company_dict,indent=4))
 
-print(json.dumps(country_dict,indent=4))
+#print(json.dumps(country_dict,indent=4))
 

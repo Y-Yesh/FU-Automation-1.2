@@ -1,69 +1,81 @@
 from docx import Document
-import win32com.client
 from docx2pdf import convert
+from utils.map_level import map_level
+
 
 from time import sleep
 from csv_extraction import participant_dict, company_dict, country_dict
+from definitions import definitions
 
 # Load the Word document
 doc_path = r"C:\Users\GOOD\Downloads\AIR.docx"  # Replace with your actual file path
 doc = Document(doc_path)
 
 
-
-
-
-
 date = '16/02/2025' # Initialize data variable with current date
+
+
+summary_table = doc.tables[0]
+'''for each in summary_table.rows:
+    print(len(summary_table.rows))
+    row_data = [cell.text for cell in each.cells]  # Extract text from each cell
+    print(row_data)'''
+
 
 #print(doc.tables)
 
-'''for index, table in enumerate(doc.tables):
-    print(f"Table {index}: {table}")
-    for row in table.rows:
-        row_data = [cell.text.strip() for cell in row.cells]  # Extract text from each cell
-        #print(row_data)
-        for cell in row.cells:
-            #print(cell.text)
-            cell.text = cell.text.replace('name' ,'yeshwanth')
-        #print("\t".join(row_data))  # Print the row with tab spacing'''
 
+for each,details in participant_dict.items():
 
-for each in participant_dict.keys():
-
+    print(f'Name ----------> {each}')
+    #print(f'Details -------> {details['Total Score']}')
+    #print(f'Level -------> {[map_level(details['Total Score'])]}')
+    #print(f'Definition ------> {definitions["Total Score"][map_level(details["Total Score"])]}')
 # ---------------------- Modifying Table 1 (Summary Table) ----------------------
 
-    summary_table = doc.tables[0]
-
-    for index, row in enumerate(summary_table.rows,start=1):
-        if index == 1:   # Row 1 is 'Name' and 'Date'
-            for index,cell in enumerate(row.cells, start=1):
-                if index == 2: # Cell 2 is 'Name'
-                    cell.text = each
-                if index == 4 :
-                        cell.text = date
-        row_data = [cell.text.strip() for cell in row.cells]  # Extract text from each cell
-        print(row_data)
+    # Row 1 is 'Name' and 'Date' 
+    row0 = summary_table.rows[0] 
+    row0.cells[1].text = each
+    row0.cells[3].text = date   
+                
+    row_data = [cell.text.strip() for cell in row0.cells]  # Extract text from each cell
+    print(row_data)
 
 
-    # Save the updated document as a DOCX file (using python-docx)
-    updated_doc_path = fr"C:\Users\GOOD\Downloads\Test\{each}.docx"
-    pdf_file = fr"C:\Users\GOOD\Downloads\Test\{each}.pdf"
+    # Row 2 is 'Company' and 'Definition'
+    row1 = summary_table.rows[1] 
+    row1.cells[1].text = details['Company']
+    row1.cells[3].text = definitions['Total Score'][map_level(details['Total Score'])]
+    row_data1 = [cell.text.strip() for cell in row1.cells]  # Extract text from each cell
+    print(row_data1)
 
-    doc.save(updated_doc_path)
+    #Row 3 is 'Country' and 'Total Score'
+    row2 = summary_table.rows[2] 
+    row2.cells[1].text = details['Country']
+    row2.cells[2].text = str(details['Total Score'])
+                
+    row_data2 = [cell.text.strip() for cell in row2.cells]  # Extract text from each cell
+    print(row_data2)
 
-    convert(updated_doc_path, pdf_file)
+    #Row 4 is 'Company' and 'Total Score'
+    row3 = summary_table.rows[3] 
+    row3.cells[1].text = details['Department']
+    row3.cells[2].text = str(details['Total Score'])
+                
+    row_data3 = [cell.text.strip() for cell in row3.cells]  # Extract text from each cell
+    print(row_data3)
 
-'''
-    # Convert the saved DOCX to PDF using win32com
-    word = win32com.client.Dispatch("Word.Application")
-    #word.Visible = False  # Run in background
+    #Row 5 is 'Company' and 'Total Score'
+    row4 = summary_table.rows[4] 
+    row3.cells[1].text = details['Position']
+    row3.cells[2].text = map_level(details['Total Score'])
+                
+    row_data4 = [cell.text.strip() for cell in row4.cells]  # Extract text from each cell
+    print(row_data4)
 
-    #sleep(20)
 
-    # Use a separate variable for the COM document
-    com_doc = word.Documents.Open(updated_doc_path)
-    com_doc.SaveAs(pdf_file, FileFormat=17)  # 17 is the PDF format code
-    com_doc.Close()
-    word.Quit()'''
+
+
+
+
 
